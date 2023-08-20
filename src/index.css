@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url("https://news.artnet.com/app/news-upload/2015/04/40ad0fb574ce01c61ce8752574a3e619.jpg") no-repeat  center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100% 100%;
+ }
+
+iframe {
+  width: 1150px;
+  height: 800px
+}
