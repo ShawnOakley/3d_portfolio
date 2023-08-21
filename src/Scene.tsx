@@ -182,8 +182,8 @@ const { positionX } = useSpring({
         ))}
       </group> */}
             <EffectComposer>
-        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+        {/* <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} /> */}
+        <Bloom luminanceThreshold={0.7} luminanceSmoothing={0.9} height={300} />
         <Noise opacity={0.02} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>    
@@ -191,11 +191,11 @@ const { positionX } = useSpring({
       <ambientLight intensity={0.5} />
       <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
             <Text
-                font="./bangers-v20-latin-regular.woff"
-                fontSize={ 0.8 }
+                // font="./bangers-v20-latin-regular.woff"
+                fontSize={ 0.6 }
                 position={ [ -2, 1.6, 0.8 ] }
                 rotation-y={ 0.7 }
-                color={'blue'}
+                // color={'blue'}
 
             >
                 {sceneObject.title}
@@ -205,12 +205,12 @@ const { positionX } = useSpring({
 
         <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
             <Text
-                font="./bangers-v20-latin-regular.woff"
-                fontSize={ 1 }
+                // font="./bangers-v20-latin-regular.woff"
+                fontSize={ 0.8 }
                 position={ [ 0.25, 0.9, -1 ] }
                 rotation-y={ -0.8 }
-                maxWidth={ 2 }
-                color={'blue'}
+                // maxWidth={ 2 }
+                // color={'blue'}
 
             >
                 Shawn
@@ -218,12 +218,12 @@ const { positionX } = useSpring({
         </Float>
         <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
                 <Text
-                    font="./bangers-v20-latin-regular.woff"
-                    fontSize={ 1 }
+                    // font="./bangers-v20-latin-regular.woff"
+                    fontSize={ 0.8 }
                     position={ [ 0.25, -0.2, 0 ] }
                     rotation-y={ -0.8 }
-                    maxWidth={ 2 }
-                    color={'blue'}
+                    // maxWidth={ 2 }
+                    // color={'blue'}
                 >
                     Oakley
                 </Text>       
@@ -286,7 +286,7 @@ const { positionX } = useSpring({
                     onPointerOut={() => setHoverCursor(false)}
                     onClick={() => {
                         setActive(!active)
-                        setTimeout(()=>window.open('https://codingbeautydev.com', '_blank', 'noreferrer'), 1000);
+                        setTimeout(()=>window.open('https://github.com/ShawnOakley', '_blank', 'noreferrer'), 1000);
 
                     }}
                 />
