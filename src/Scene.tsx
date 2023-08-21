@@ -25,6 +25,7 @@ import {
     Sky,
     useCursor 
 } from '@react-three/drei'
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 
 // https://www.react-spring.dev/docs/components/use-chain
 // https://codesandbox.io/s/q6ffu
@@ -180,6 +181,12 @@ const { positionX } = useSpring({
           <Shape {...item} {...props} />
         ))}
       </group> */}
+            <EffectComposer>
+        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
+        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+        <Noise opacity={0.02} />
+        <Vignette eskil={false} offset={0.1} darkness={1.1} />
+      </EffectComposer>    
       <Environment files={"./sky.hdr"} />
       <ambientLight intensity={0.5} />
       <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
