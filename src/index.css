@@ -12,8 +12,9 @@ body,
 }
 
 body {
+  background: url("assets/background_test.png")  no-repeat  center fixed;
   /* background: url("https://news.artnet.com/app/news-upload/2015/04/40ad0fb574ce01c61ce8752574a3e619.jpg") no-repeat  center fixed; */
-  background: url("assets/environment.jpg") no-repeat  center fixed;
+  /* background: url("assets/environment.jpg") no-repeat  center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

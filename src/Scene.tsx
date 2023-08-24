@@ -27,6 +27,9 @@ import {
 } from '@react-three/drei'
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
+
+
 // https://www.react-spring.dev/docs/components/use-chain
 // https://codesandbox.io/s/q6ffu
 // https://www.turbosquid.com/3d-models/6-cartoon-smoke-simulation-3d-c4d/1062938
@@ -72,7 +75,7 @@ export default function App() {
     const [sceneCounter, setSceneCounter] = useState(0)
     const [sceneObject, setSceneObject] = useState(sceneContainer[sceneCounter])
 
-
+    const propRef = useRef()
     // https://www.30secondsofcode.org/react/s/use-key-press/
     const useKeyPress = targetKey => {
         const [keyPressed, setKeyPressed] = React.useState(false);
@@ -105,12 +108,17 @@ export default function App() {
         console.log('key', key, sceneCounter)
     };
 
-    useFrame((_, delta) => {
+    useFrame((context, delta) => {
     if (rightPressed && sceneCounter < sceneContainer.length-1) {
         setSceneCounter(sceneCounter+1)
         } else if (leftPressed && sceneCounter>0) {
         setSceneCounter(sceneCounter-1)
         };    
+
+        // console.log(context, propRef.current)
+        // https://stackoverflow.com/questions/12919638/textgeometry-to-always-face-user
+        propRef.current.lookAt(context.camera.position)
+
     })  
 
     React.useEffect(()=>{
@@ -172,6 +180,7 @@ const { positionX } = useSpring({
   const [{ y }] = useSpring(
     () => ({ to: { y: active ? 6 : 0 }, config: config.wobbly }), [active]
 )
+const colorMap = useLoader(TextureLoader, 'plane_test.png')
 
 //   console.log("EASINGS", easings)
   return (
@@ -183,13 +192,15 @@ const { positionX } = useSpring({
       </group> */}
             <EffectComposer>
         {/* <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} /> */}
-        <Bloom luminanceThreshold={0.7} luminanceSmoothing={0.9} height={300} />
-        <Noise opacity={0.02} />
+        {/* <Bloom luminanceThreshold={0.7} luminanceSmoothing={0.9} height={300} /> */}
+        {/* <Noise opacity={0.02} /> */}
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>    
-      <Environment files={"./sky.hdr"} />
-      <ambientLight intensity={0.5} />
-      <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
+      {/* <Environment files={"./background_test.png"} /> */}
+      <ambientLight intensity={2}  />
+      <ambientLight intensity={0.1} color={"blue"} />
+      <ambientLight intensity={0.1} color={"green"} />
+      {/* <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
             <Text
                 // font="./bangers-v20-latin-regular.woff"
                 fontSize={ 0.6 }
@@ -215,8 +226,8 @@ const { positionX } = useSpring({
             >
                 Shawn
             </Text>
-        </Float>
-        <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
+        </Float> */}
+        {/* <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
                 <Text
                     // font="./bangers-v20-latin-regular.woff"
                     fontSize={ 0.8 }
@@ -259,7 +270,14 @@ const { positionX } = useSpring({
                     </Html>
                 </primitive>
             </PresentationControls>
-      </Float>
+      </Float> */}
+      {/* <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}> */}
+
+      <mesh scale={5} rotation={[.2,0.1,0.3]} ref={propRef}>
+        <planeGeometry  />
+        <meshStandardMaterial  transparent={true} map={colorMap} />
+      </mesh>
+      {/* </Float> */}
       <Float matrixWorldAutoUpdate={false} getObjectsByProperty={false} rotationIntensity={0.2}>
         <PresentationControls
                 enabled={false} // the controls can be disabled by setting this to false
@@ -272,16 +290,16 @@ const { positionX } = useSpring({
             >                       
                 <a.primitive
                     object= { spaceship.scene }
-                    // scale={scale}
+                    scale={0.5}
                     // position-y = {0}
-                    position-y = {y}
+                    position-y = {-2}
                     position-z = {1}
                     // position-z={z}
                     position-x = {3.5}
                     // position-x={positionX}
                     // position={position}
                     rotation-y={-Math.PI}
-                    rotation-x={Math.PI/2}
+                    rotation-x={Math.PI/50}
                     onPointerOver={() => setHoverCursor(true)} 
                     onPointerOut={() => setHoverCursor(false)}
                     onClick={() => {
